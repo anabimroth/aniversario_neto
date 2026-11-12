@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Meu Amor 🦇✨</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #120a16 0%, #1f1124 50%, #0d0810 100%);
+            color: #fceee9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- ELEMENTOS FLUTUANDO NO FUNDO --- */
+        .floating-element {
+            position: absolute;
+            bottom: -60px;
+            pointer-events: none;
+            animation: floatUp 12s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-110vh) scale(1.2) rotate(25deg); opacity: 0; }
+        }
+
+        /* --- ESTRUTURA DAS TELAS --- */
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 480px;
+            padding: 20px;
+            transform: scale(0.8) translateY(25px);
+            opacity: 0;
+            transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.7s ease;
+            z-index: 10;
+        }
+
+        .screen.active {
+            display: flex;
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            animation: gentleFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
+
+        h2 {
+            color: #f7cad0;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(247, 202, 208, 0.3);
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #d8c8cb;
+        }
+
+        button {
+            background: linear-gradient(135deg, #e056fd, #be2edd);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(224, 86, 253, 0.4);
+            z-index: 5;
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 25px rgba(224, 86, 253, 0.7);
+        }
+
+        .animate-entry {
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        input {
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: 25px;
+            border: 1px solid rgba(224, 86, 253, 0.5);
+            background: rgba(20, 12, 25, 0.8);
+            color: #fff;
+            text-align: center;
+            width: 80%;
+            margin-bottom: 8px;
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            border-color: #e056fd;
+            box-shadow: 0 0 15px rgba(224, 86, 253, 0.7);
+        }
+
+        .password-hint {
+            font-size: 0.82rem;
+            color: #e8a2b5;
+            margin-bottom: 15px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .timer-box {
+            background: rgba(35, 20, 42, 0.6);
+            padding: 12px 22px;
+            border-radius: 20px;
+            margin: 12px 0;
+            border: 1px solid rgba(247, 202, 208, 0.2);
+            color: #f7cad0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* --- PLAYER DE VINIL ESTILIZADO (PERFEITO PARA O QR CODE) --- */
+        .vinyl-card {
+            background: rgba(25, 15, 32, 0.9);
+            border: 1px solid rgba(224, 86, 253, 0.4);
+            border-radius: 20px;
+            padding: 18px 22px;
+            width: 100%;
+            max-width: 320px;
+            margin: 15px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .vinyl-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 35px rgba(224, 86, 253, 0.5);
+        }
+
+        .vinyl-disc {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1a1a1a 30%, #e056fd 31%, #120a16 70%);
+            border: 2px solid #f7cad0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(224, 86, 253, 0.6);
+            animation: spinVinyl 5s linear infinite;
+        }
+
+        @keyframes spinVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .track-details {
+            text-align: left;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .track-name {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fceee9;
+            margin: 0 0 3px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-artist {
+            font-size: 0.8rem;
+            color: #d8c8cb;
+            margin: 0;
+        }
+
+        .play-icon-badge {
+            background: #1DB954;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+            box-shadow: 0 0 12px rgba(29, 185, 84, 0.8);
+            flex-shrink: 0;
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            height: 20px;
+            margin-bottom: 10px;
+        }
+
+        .progress-container {
+            width: 75%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            height: 10px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff7675, #ffeaa7);
+            transition: width 0.15s linear;
+        }
+
+        /* --- ANIMAÇÃO DE CHEGADA DA CARTA / ENVELOPE --- */
+        .envelope-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 10px 0;
+            animation: bounceInEnvelope 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bounceInEnvelope {
+            0% { transform: scale(0) translateY(50px); opacity: 0; }
+            60% { transform: scale(1.05) translateY(-10px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.08) translateY(0);
+        }
+
+        .envelope {
+            width: 200px;
+            height: 120px;
+            background: #2d1b36;
+            border: 2px solid #f7cad0;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 70px solid #f7cad0;
+            transform-origin: top;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .seal {
+            width: 38px;
+            height: 38px;
+            background: #e056fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(224, 86, 253, 0.9);
+            z-index: 4;
+            font-size: 1rem;
+            animation: pulseSeal 2s infinite;
+        }
+
+        @keyframes pulseSeal {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .letter-content {
+            display: none;
+            background: #fdfbf7;
+            color: #2c2416;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            animation: slideUpLetter 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            margin-bottom: 15px;
+            border: 1px solid #e8dcc4;
+        }
+
+        @keyframes slideUpLetter {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .letter-content p {
+            color: #3b2f2f;
+            margin-bottom: 12px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ELEMENTOS FLUTUANDO NO FUNDO -->
+    <div class="floating-element" style="left: 10%; animation-duration: 11s; animation-delay: 0s;">
+        <svg width="40" height="40" fill="#e8a2b5" opacity="0.25" viewBox="0 0 512 512"><path d="M256,32C132.3,32,32,132.3,32,256s100.3,224,224,224,224-100.3,224-224S379.7,32,256,32ZM390.4,321.4c-11.4,14.6-25,27.1-40.2,37.2-22.3,14.8-48.4,22.3-76.8,22.3-15.6,0-30.8-2.3-45.4-7-14.6-4.7-27.7-11.7-39-21-27.4-22.5-43.9-55.8-46.7-93.5,4.7,2.8,9.7,5,15,6.7,21.8,7,45.4,3.2,63.9-10.4,18.5-13.6,29.3-35.3,29.3-58.4,0-6.1-.8-12.1-2.4-17.9,13.7,11.2,30.3,17.9,47.7,19.2,2.3.2,4.6.3,6.9.3,13.9,0,27.5-2.6,40.4-7.6,12.9-5,24.9-12.3,35.6-21.7,3.1,27.1,1.1,54.8-5.9,81-7,26.2-18.7,50.7-34.9,72.6Z"/></svg>
+    </div>
+    <div class="floating-element" style="left: 30%; animation-duration: 14s; animation-delay: 2s;">
+        <span style="font-size: 24px; opacity: 0.3;">❤️</span>
+    </div>
+    <div class="floating-element" style="left: 60%; animation-duration: 10s; animation-delay: 1s;">
+        <svg width="35" height="35" fill="#e8a2b5" opacity="0.25" viewBox="0 0 512 512"><path d="M256,32C132.3,32,32,132.3,32,256s100.3,224,224,224,224-100.3,224-224S379.7,32,256,32ZM390.4,321.4c-11.4,14.6-25,27.1-40.2,37.2-22.3,14.8-48.4,22.3-76.8,22.3-15.6,0-30.8-2.3-45.4-7-14.6-4.7-27.7-11.7-39-21-27.4-22.5-43.9-55.8-46.7-93.5,4.7,2.8,9.7,5,15,6.7,21.8,7,45.4,3.2,63.9-10.4,18.5-13.6,29.3-35.3,29.3-58.4,0-6.1-.8-12.1-2.4-17.9,13.7,11.2,30.3,17.9,47.7,19.2,2.3.2,4.6.3,6.9.3,13.9,0,27.5-2.6,40.4-7.6,12.9-5,24.9-12.3,35.6-21.7,3.1,27.1,1.1,54.8-5.9,81-7,26.2-18.7,50.7-34.9,72.6Z"/></svg>
+    </div>
+    <div class="floating-element" style="left: 85%; animation-duration: 13s; animation-delay: 3s;">
+        <span style="font-size: 20px; opacity: 0.3;">💖</span>
+    </div>
+
+    <!-- TELA 1: CARREGAMENTO -->
+    <div id="screen-1" class="screen active">
+        <h2>Preparando uma Surpresa 🦇</h2>
+        <p id="loading-text">Carregando momentos especiais (0%)...</p>
+        <div class="progress-container">
+            <div id="progress" class="progress-bar"></div>
+        </div>
+        <button id="btn-comecar" onclick="mudarTela(2)" disabled>Carregando...</button>
+    </div>
+
+    <!-- TELA 2: MÚSICA & CONTADOR -->
+    <div id="screen-2" class="screen">
+        <h2>A Trilha Sonora da Nossa História 🎶</h2>
+        
+        <!-- PLAYER DE VINIL INTERATIVO -->
+        <a href="https://open.spotify.com/track/3TnVzwHRytGd8Va9jn6Yhs" target="_blank" class="vinyl-card">
+            <div class="vinyl-disc">💿</div>
+            <div class="track-details">
+                <p class="track-name">Final Feliz</p>
+                <p class="track-artist">Jorge Vercillo</p>
+            </div>
+            <div class="play-icon-badge">▶</div>
+        </a>
+
+        <p style="font-size: 0.85rem; margin-top: 15px;">Tempo de vida iluminando este mundo:</p>
+        <div class="timer-box">
+            <span id="days">0</span> dias de vida
+        </div>
+        <button onclick="mudarTela(3)">Continuar ➔</button>
+    </div>
+
+    <!-- TELA 3: SENHA COM ANIMAÇÃO E DICA -->
+    <div id="screen-3" class="screen">
+        <div class="animate-entry" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h2>Área Exclusiva 🦇</h2>
+            <p>Para abrir esta mensagem de aniversário, digite a senha secreta:</p>
+            <input type="text" id="codigo-input" placeholder="Digite a senha...">
+            <div class="password-hint">💡 Dica: Qual o seu nível (level) hoje?</div>
+            <div id="erro" class="error-msg"></div>
+            <button onclick="verificarCodigo()">Desbloquear 🔓</button>
+        </div>
+    </div>
+
+    <!-- TELA 4: CARTA ROMÂNTICA ANIMADA -->
+    <div id="screen-4" class="screen">
+        <h2>Feliz Aniversário, Meu Amor! 🦇✨</h2>
+        
+        <!-- Envelope Fechado com Animação de Chegada -->
+        <div id="envelope-box" class="envelope-container" onclick="abrirCarta()">
+            <div class="envelope" id="envelope-el">
+                <div class="envelope-flap"></div>
+                <div class="seal">🦇</div>
+            </div>
+            <p style="font-size: 0.82rem; color: #f7cad0; margin-top: 12px;">Toque no envelope para abrir a carta</p>
+        </div>
+
+        <!-- Conteúdo da Carta Revelado -->
+        <div id="letter-box" class="letter-content">
+            <p><strong>Meu amor,</strong></p>
+            <p>Chegar aos 20 anos é um marco incrível, e eu não poderia estar mais feliz por estar aqui comemorando essa data ao seu lado.</p>
+            <p>Cada momento que a gente passa junto é especial, e eu queria te dar algo que fizesse parte do seu dia a dia e deixasse seu cantinho ainda mais a sua cara.</p>
+            <p>Preparei esse kit especial para o seu setup pensando em todas as horas incríveis que você passa nele.</p>
+            <p>Que essa nova fase traga muitas conquistas e alegrias.</p>
+            <p style="text-align: right; margin-top: 12px;"><strong>Podes abrir a caixa agora! ❤️</strong></p>
+        </div>
+
+        <button id="btn-restart" style="display:none;" onclick="location.reload()">Recomeçar 🔄</button>
+    </div>
+
+    <script>
+        let largura = 0;
+        const barra = document.getElementById('progress');
+        const textoCarregamento = document.getElementById('loading-text');
+        const botaoComecar = document.getElementById('btn-comecar');
+
+        const intervaloCarregamento = setInterval(() => {
+            if (largura >= 100) {
+                clearInterval(intervaloCarregamento);
+                textoCarregamento.textContent = "Tudo pronto!";
+                botaoComecar.disabled = false;
+                botaoComecar.textContent = "Abrir Surpresa ➔";
+            } else {
+                largura++;
+                barra.style.width = largura + '%';
+                let textStatus = largura < 50 ? "Reunindo as lembranças..." : "Quase lá...";
+                textoCarregamento.textContent = textStatus + ` (${largura}%)`;
+            }
+        }, 50);
+
+        function mudarTela(numeroTela) {
+            const telas = document.querySelectorAll('.screen');
+            telas.forEach(tela => tela.classList.remove('active'));
+            
+            setTimeout(() => {
+                const telaAlvo = document.getElementById('screen-' + numeroTela);
+                if (telaAlvo) {
+                    telaAlvo.classList.add('active');
+                    if (numeroTela === 4) {
+                        soltarConfetes();
+                    }
+                }
+            }, 400);
+        }
+
+        function abrirCarta() {
+            const envelope = document.getElementById('envelope-el');
+            const envelopeBox = document.getElementById('envelope-box');
+            const letterBox = document.getElementById('letter-box');
+            const btnRestart = document.getElementById('btn-restart');
+
+            envelope.classList.add('open');
+
+            setTimeout(() => {
+                envelopeBox.style.display = 'none';
+                letterBox.style.display = 'block';
+                btnRestart.style.display = 'inline-block';
+            }, 600);
+        }
+
+        function verificarCodigo() {
+            const inputEl = document.getElementById('codigo-input');
+            const input = inputEl.value.trim().toUpperCase();
+            const erro = document.getElementById('erro');
+
+            if (input === 'LEVEL20' || input === 'LEVEL 20') {
+                erro.textContent = '';
+                mudarTela(4); 
+            } else {
+                erro.textContent = 'Senha incorreta! Dica: Pensa na tua idade nova 😉';
+                inputEl.classList.add('shake');
+                setTimeout(() => inputEl.classList.remove('shake'), 400);
+            }
+        }
+
+        function soltarConfetes() {
+            const cores = ['#e056fd', '#f7cad0', '#ffeaa7', '#ff7675', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
+                const confete = document.createElement('div');
+                confete.className = 'confetti';
+                confete.style.left = Math.random() * 100 + 'vw';
+                confete.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+                confete.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                document.body.appendChild(confete);
+            }
+        }
+
+        const dataNascimento = new Date(2006, 11, 9);
+        const hoje = new Date();
+        const diffTime = Math.abs(hoje - dataNascimento);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById('days').textContent = diffDays;
+    </script>
+</body>
+</html>
